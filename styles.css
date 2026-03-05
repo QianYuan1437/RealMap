@@ -8,6 +8,20 @@
   --accent: #40d0ff;
   --accent-2: #23f0c7;
   --danger: #ff7c9d;
+  --input-bg: rgba(7, 23, 36, 0.92);
+}
+
+[data-theme="light"] {
+  --bg-1: #d8f3ff;
+  --bg-2: #edf9ff;
+  --panel: rgba(255, 255, 255, 0.8);
+  --border: rgba(53, 127, 166, 0.25);
+  --text: #09304a;
+  --muted: #3d6d87;
+  --accent: #008fca;
+  --accent-2: #0dbf98;
+  --danger: #d63f66;
+  --input-bg: rgba(234, 247, 255, 0.95);
 }
 
 * {
@@ -40,6 +54,48 @@ body {
   width: min(1200px, 94vw);
   margin: 28px auto 38px;
   position: relative;
+}
+
+.top-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.time-display {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.icon-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.icon-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.icon-btn:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(64, 208, 255, 0.15);
 }
 
 .hero h1 {
@@ -84,13 +140,31 @@ body {
   font-weight: 500;
 }
 
+.select-wrap {
+  position: relative;
+}
+
+.select-wrap::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid rgba(183, 232, 255, 0.9);
+  border-bottom: 2px solid rgba(183, 232, 255, 0.9);
+  transform: translateY(-65%) rotate(45deg);
+  pointer-events: none;
+}
+
 select {
+  appearance: none;
   width: 100%;
   border: 1px solid rgba(154, 219, 255, 0.3);
-  background: rgba(7, 23, 36, 0.92);
+  background: var(--input-bg);
   color: var(--text);
   border-radius: 999px;
-  padding: 12px 16px;
+  padding: 12px 40px 12px 16px;
   font-size: 0.96rem;
   font-family: inherit;
   outline: none;
@@ -209,6 +283,10 @@ svg {
 }
 
 @media (max-width: 980px) {
+  .top-actions {
+    justify-content: space-between;
+  }
+
   .controls,
   .stats-grid,
   .maps-grid {
