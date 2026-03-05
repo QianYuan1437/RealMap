@@ -52,11 +52,13 @@ async function init() {
   buildAreaMap(countriesArea);
   buildRanking();
   fillCountrySelect();
+  initCustomSelects();
   bindEvents();
 
   state.selectedIso = "CHN";
   elements.countrySelect.value = state.selectedIso;
   elements.countrySelect.disabled = false;
+  refreshCustomSelects();
   renderAll();
 }
 
@@ -112,6 +114,79 @@ function fillCountrySelect() {
   elements.countrySelect.innerHTML = options
     .map((o) => `<option value="${o.iso}">${o.name} (${o.iso})</option>`)
     .join("");
+}
+
+function initCustomSelects() {
+  const wraps = document.querySelectorAll(".select-wrap");
+  for (const wrap of wraps) {
+    const select = wrap.querySelector("select");
+    if (!select || wrap.dataset.customized === "1") continue;
+    wrap.dataset.customized = "1";
+
+    const display = document.createElement("button");
+    display.type = "button";
+    display.className = "select-display";
+    wrap.appendChild(display);
+
+    const menu = document.createElement("ul");
+    menu.className = "select-menu";
+    wrap.appendChild(menu);
+
+    const renderMenu = () => {
+      const current = select.value;
+      menu.innerHTML = "";
+      for (const opt of select.options) {
+        const li = document.createElement("li");
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "select-option";
+        if (opt.value === current) {
+          btn.classList.add("is-selected");
+        }
+        btn.textContent = opt.textContent || "";
+        btn.addEventListener("click", () => {
+          if (select.disabled) return;
+          select.value = opt.value;
+          select.dispatchEvent(new Event("change", { bubbles: true }));
+          closeAllCustomSelects();
+        });
+        li.appendChild(btn);
+        menu.appendChild(li);
+      }
+      const activeText = select.options[select.selectedIndex]?.textContent || "";
+      display.textContent = activeText;
+      wrap.classList.toggle("is-disabled", !!select.disabled);
+    };
+
+    display.addEventListener("click", (ev) => {
+      ev.stopPropagation();
+      if (select.disabled) return;
+      const willOpen = !wrap.classList.contains("open");
+      closeAllCustomSelects();
+      if (willOpen) {
+        wrap.classList.add("open");
+      }
+    });
+
+    select.addEventListener("change", renderMenu);
+    renderMenu();
+  }
+
+  document.addEventListener("click", closeAllCustomSelects);
+}
+
+function closeAllCustomSelects() {
+  const wraps = document.querySelectorAll(".select-wrap.open");
+  for (const wrap of wraps) {
+    wrap.classList.remove("open");
+  }
+}
+
+function refreshCustomSelects() {
+  const selects = document.querySelectorAll(".select-wrap select");
+  for (const select of selects) {
+    select.dispatchEvent(new Event("change", { bubbles: true }));
+  }
 }
 
 function bindEvents() {
