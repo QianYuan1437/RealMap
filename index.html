@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RealMap | 国家真实面积与投影对比</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <main class="app-shell">
+    <header class="hero">
+      <p class="kicker">RealMap</p>
+      <h1>真实面积查看器</h1>
+      <p class="subtitle">查看国家实际面积，并比较不同地图投影下的面积视觉差异</p>
+    </header>
+
+    <section class="controls card">
+      <div class="control-item">
+        <label for="country-select">选择国家</label>
+        <select id="country-select" disabled>
+          <option>加载中...</option>
+        </select>
+      </div>
+      <div class="control-item">
+        <label for="projection-select">左侧投影</label>
+        <select id="projection-select">
+          <option value="EqualEarth">Equal Earth（等积）</option>
+          <option value="NaturalEarth1">Natural Earth</option>
+          <option value="Mercator">Mercator</option>
+        </select>
+      </div>
+      <div class="control-item">
+        <label for="compare-select">右侧投影</label>
+        <select id="compare-select">
+          <option value="Mercator">Mercator</option>
+          <option value="EqualEarth">Equal Earth（等积）</option>
+          <option value="NaturalEarth1">Natural Earth</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="stats-grid">
+      <article class="card stat">
+        <p class="stat-label">真实面积</p>
+        <p id="real-area" class="stat-value">--</p>
+        <p class="stat-hint">单位：平方公里 km²</p>
+      </article>
+      <article class="card stat">
+        <p class="stat-label">面积排名</p>
+        <p id="rank-area" class="stat-value">--</p>
+        <p id="rank-hint" class="stat-hint">--</p>
+      </article>
+      <article class="card stat">
+        <p class="stat-label">投影失真比</p>
+        <p id="distortion" class="stat-value">--</p>
+        <p id="distortion-hint" class="stat-hint">右侧 / 左侧 像素面积</p>
+      </article>
+    </section>
+
+    <section class="card meter-wrap">
+      <div class="meter-header">
+        <p>面积相对尺度</p>
+        <p id="meter-value">--</p>
+      </div>
+      <div class="meter-track">
+        <div id="meter-bar" class="meter-bar"></div>
+      </div>
+    </section>
+
+    <section class="maps-grid">
+      <article class="card map-panel">
+        <div class="panel-title">
+          <h2 id="left-title">Equal Earth（等积）</h2>
+        </div>
+        <svg id="map-left" viewBox="0 0 840 420" aria-label="左侧投影地图"></svg>
+      </article>
+      <article class="card map-panel">
+        <div class="panel-title">
+          <h2 id="right-title">Mercator</h2>
+        </div>
+        <svg id="map-right" viewBox="0 0 840 420" aria-label="右侧投影地图"></svg>
+      </article>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="./script.js"></script>
+</body>
+</html>
