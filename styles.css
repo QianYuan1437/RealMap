@@ -58,12 +58,18 @@ body {
   position: relative;
 }
 
+.hero-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+}
+
 .top-actions {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 10px;
-  margin-bottom: 12px;
 }
 
 .time-display {
@@ -382,8 +388,13 @@ svg {
 }
 
 @media (max-width: 980px) {
+  .hero-main {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .top-actions {
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 
   .controls,
