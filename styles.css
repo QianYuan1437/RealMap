@@ -215,6 +215,8 @@ body {
   gap: 14px;
   padding: 16px;
   margin-top: 18px;
+  position: relative;
+  z-index: 80;
 }
 
 .control-item label {
@@ -314,6 +316,8 @@ body {
   list-style: none;
   display: none;
   z-index: 999;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(64, 208, 255, 0.55) rgba(12, 40, 60, 0.45);
 }
 
 [data-theme="light"] .select-menu {
@@ -346,11 +350,28 @@ body {
   background: rgba(64, 208, 255, 0.28);
 }
 
+.select-menu::-webkit-scrollbar {
+  width: 10px;
+}
+
+.select-menu::-webkit-scrollbar-track {
+  background: rgba(12, 40, 60, 0.45);
+  border-radius: 999px;
+}
+
+.select-menu::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(64, 208, 255, 0.75), rgba(35, 240, 199, 0.75));
+  border-radius: 999px;
+  border: 2px solid rgba(12, 40, 60, 0.45);
+}
+
 .stats-grid {
   margin-top: 14px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
+  position: relative;
+  z-index: 10;
 }
 
 .stat {

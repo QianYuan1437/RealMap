@@ -301,7 +301,7 @@ function updateUtc8Time() {
   const hh = String(utc8.getUTCHours()).padStart(2, "0");
   const mm = String(utc8.getUTCMinutes()).padStart(2, "0");
   const ss = String(utc8.getUTCSeconds()).padStart(2, "0");
-  elements.utc8Time.textContent = `${y}-${m}-${d} ${hh}:${mm}:${ss} UTC+8`;
+  elements.utc8Time.textContent = `${y}-${m}-${d} ${hh}:${mm}:${ss} UTC+08:00`;
 }
 
 function initTheme() {
